@@ -1,0 +1,38 @@
+{
+  "name": "package-json-treeview",
+  "version": "1.0.1",
+  "description": "explore a top package.json in treeview",
+  "main": "package-json-treeview.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "package.json",
+    "treeview"
+  ],
+  "author": "fwg",
+  "license": "ISC",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adf0001/package-json-treeview.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adf0001/package-json-treeview/issues"
+  },
+  "homepage": "https://github.com/adf0001/package-json-treeview#readme",
+  "dependencies": {
+    "ele-tool": "^1.0.1",
+    "htm-tool-css": "^1.0.5",
+    "link-to-count-data-set": "^1.0.1",
+    "package-json-tool": "^1.0.1",
+    "package-json-version-tool": "^1.0.1",
+    "path-tool": "^1.0.4",
+    "ui-model-treeview": "^1.0.1"
+  },
+  "devDependencies": {
+    "package-json-data-set": "^1.0.2"
+  }
+}

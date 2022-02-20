@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/adf0001/package-json-treeview#readme",
   "dependencies": {
-    "ele-tool": "^1.0.1",
     "htm-tool-css": "^1.0.5",
     "link-to-count-data-set": "^1.0.1",
     "package-json-tool": "^1.0.1",

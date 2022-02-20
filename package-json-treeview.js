@@ -4,10 +4,8 @@
 var package_json_tool = require("package-json-tool");
 
 var link_to_count_data_set = require("link-to-count-data-set");
-
 var ui_model_treeview = require("ui-model-treeview");
 var path_tool = require("path-tool");
-var ele = require("ele-tool");
 var ele_id = require("ele-id");
 
 require("htm-tool-css");	//require ht css
@@ -213,7 +211,7 @@ var packageJsonTreeview = {
 	formatDependent: function (eleId, dependItem) {
 		if (dependItem.count < 2) return;
 
-		var el = ele(eleId);
+		var el = (typeof eleId === "string") ? document.getElementById(eleId) : eleId;
 
 		el.title = "Dependents count: " + dependItem.count + "\n" + Object.keys(dependItem.to).join(", ");
 		el.textContent = "[" + dependItem.count + "]";
@@ -222,7 +220,7 @@ var packageJsonTreeview = {
 
 	updateView: function (packageDataset) {
 
-		var elView = ele(this.eleId);
+		var elView = document.getElementById(this.eleId);
 
 		this.packageDataset = packageDataset;
 

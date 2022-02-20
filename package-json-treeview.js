@@ -141,8 +141,19 @@ var packageJsonTreeview = {
 	},
 
 	formatContent: function (name, versionText, toExpand, isDevelope) {
-		var a = [];
 
+		var pkgItem = this.packageDataset.get(name);
+		var verMatch = pkgItem ? semver_satisfies(pkgItem.pkg.version, versionText) : null;
+
+		if (toExpand) {
+			if (pkgItem && verMatch &&
+				!package_json_tool.hasAnyDependencies(pkgItem.pkg)) {
+				toExpand = false;
+			}
+		}
+
+		var a = [];
+		
 		a[a.length] = "<span" +
 			(toExpand ? " class='ht cmd tree-to-expand'" : "") +
 			" style='padding:0em 0.5em;text-decoration:none;font-family:monospace;font-size:9pt;'>" +
@@ -151,10 +162,7 @@ var packageJsonTreeview = {
 
 		a[a.length] = "<span class='ht cmd tree-name'" + (isDevelope ? " style='color:black;'" : "") + ">" + name + "</span>";
 
-		//check version
-		var pkgItem = this.packageDataset.get(name);
-
-		var verMatch = pkgItem ? semver_satisfies(pkgItem.pkg.version, versionText) : null;
+		//version
 
 		var verColor = pkgItem ? (verMatch ? "black" : "red") : "gray";
 		var verTitle = pkgItem ? (verMatch ? "" : (" title='top version is " + pkgItem.pkg.version + "'")) : "";

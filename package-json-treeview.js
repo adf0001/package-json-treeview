@@ -30,8 +30,10 @@ var packageJsonTreeview = {
 		if (packageDataset) this.updateView(packageDataset);
 	},
 
-	updateVersion: function (elArray, mainVer) {
+	updateVersionAndChildren: function (elArray, mainPkg) {
 		if (!(elArray instanceof Array)) elArray = [elArray];
+
+		var mainVer= mainPkg.version;
 
 		var i, imax = elArray.length, el, elVer, verMatch;
 		for (i = 0; i < imax; i++) {
@@ -41,6 +43,12 @@ var packageJsonTreeview = {
 			verMatch = semver_satisfies(mainVer, elVer.textContent);
 			elVer.style.color = verMatch ? "black" : "red";
 			elVer.title = verMatch ? "" : ('top version is ' + mainVer);
+
+			if(verMatch){
+				if (!package_json_tool.hasAnyDependencies(mainPkg)) {
+					ui_model_treeview.setToExpandState(el, "disable");
+				}
+			}
 		}
 	},
 
@@ -60,12 +68,12 @@ var packageJsonTreeview = {
 				elNode.setAttribute("pkg-path", path_tool.keyString(data.path));
 
 				var mainItem = _this.packageDataset.get(name);
-				_this.updateVersion(elNode, mainItem.pkg.version);
+				_this.updateVersionAndChildren(elNode, mainItem.pkg);
 				if (isNew) {
 					//update unloaded nodes
 					var depItem = _this.packageDependent.data[name];
 					if (depItem) {
-						_this.updateVersion(Object.keys(depItem.fromData), mainItem.pkg.version);
+						_this.updateVersionAndChildren(Object.keys(depItem.fromData), mainItem.pkg);
 					}
 				}
 
@@ -153,9 +161,8 @@ var packageJsonTreeview = {
 		}
 
 		var a = [];
-		
-		a[a.length] = "<span" +
-			(toExpand ? " class='ht cmd tree-to-expand'" : "") +
+
+		a[a.length] = "<span class='ht cmd tree-to-expand" + (toExpand ? "" : " disabled") + "'" +
 			" style='padding:0em 0.5em;text-decoration:none;font-family:monospace;font-size:9pt;'>" +
 			(toExpand ? "+" : ".") +
 			"</span>";
@@ -223,7 +230,6 @@ var packageJsonTreeview = {
 
 		el.title = "Dependents count: " + dependItem.count + "\n" + Object.keys(dependItem.to).join(", ");
 		el.textContent = "[" + dependItem.count + "]";
-
 	},
 
 	updateView: function (packageDataset) {

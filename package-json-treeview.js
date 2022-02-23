@@ -33,7 +33,7 @@ var packageJsonTreeview = {
 	updateVersionAndChildren: function (elArray, mainPkg) {
 		if (!(elArray instanceof Array)) elArray = [elArray];
 
-		var mainVer= mainPkg.version;
+		var mainVer = mainPkg.version;
 
 		var i, imax = elArray.length, el, elVer, verMatch;
 		for (i = 0; i < imax; i++) {
@@ -44,7 +44,7 @@ var packageJsonTreeview = {
 			elVer.style.color = verMatch ? "black" : "red";
 			elVer.title = verMatch ? "" : ('top version is ' + mainVer);
 
-			if(verMatch){
+			if (verMatch) {
 				if (!package_json_tool.hasAnyDependencies(mainPkg)) {
 					ui_model_treeview.setToExpandState(el, "disable");
 				}
@@ -256,6 +256,8 @@ var packageJsonTreeview = {
 
 		//children
 		this.addPackageChildren(elRoot, topItem);
+
+		setTimeout(function () { elView.scrollTop = 0; }, 0);
 	},
 };
 

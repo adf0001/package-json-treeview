@@ -1,6 +1,8 @@
 
 //global variable, for html page, refer tpsvr @ npm.
 package_json_treeview = require("../package-json-treeview.js");
+__package_json= require("../package.json");
+package_json_data_set= require("package-json-data-set");
 
 module.exports = {
 
@@ -8,7 +10,7 @@ module.exports = {
 		if (typeof window === "undefined") throw "disable for nodejs";
 
 		//prepare dataset
-		var pkgTop = require("../package.json");
+		var pkgTop = __package_json;
 		var pkgTopPath = "/virtual-path";
 		var loadPackageFunc = function (pathFrom, name, cb, noLoop) {
 			var packagePath = pathFrom + "/node_modules/" + name;
@@ -33,7 +35,6 @@ module.exports = {
 			xq.send();
 		}
 
-		var package_json_data_set = require("package-json-data-set");
 		var dataset = new package_json_data_set.class(pkgTop, pkgTopPath, loadPackageFunc);
 
 		//dom

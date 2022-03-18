@@ -162,7 +162,7 @@ var packageJsonTreeview = {
 
 		var a = [];
 
-		a[a.length] = "<span class='ht cmd tree-to-expand" + (toExpand ? "" : " disabled") + "'" +
+		a[a.length] = "<span class='ht tree-to-expand" + (toExpand ? " cmd" : " disabled") + "'" +
 			" style='padding:0em 0.5em;text-decoration:none;font-family:monospace;font-size:9pt;'>" +
 			(toExpand ? "+" : ".") +
 			"</span>";

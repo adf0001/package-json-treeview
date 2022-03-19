@@ -189,7 +189,7 @@ var packageJsonTreeview = {
 		var i, content, el;
 		for (i in items) {
 			content = this.formatContent(i, items[i], true, isDevelope);
-			el = ui_model_treeview.addChild(elChildren, { content: content }, true);
+			el = ui_model_treeview.addNode(elChildren, { content: content }, true);
 			this.packageDependent.add(i, parentName, ele_id(ui_model_treeview.nodePart(el, "pkg-dependent")));
 		}
 	},
@@ -211,7 +211,7 @@ var packageJsonTreeview = {
 			}
 			if (package_json_tool.hasDependencies(pkg, "dev")) {
 				var html = "<div class='tree-delay'><span class='ht cmd pkg-dev' style='color:gray;margin-left:1em;text-decoration:none;'>... devDependencies</span></div>";
-				ui_model_treeview.addChild(elChildren, { html: html }, true);
+				ui_model_treeview.addNode(elChildren, { html: html }, true);
 			}
 		}
 		else {
@@ -248,7 +248,7 @@ var packageJsonTreeview = {
 		var topItem = packageDataset.top;
 		var topPkg = topItem.pkg;
 
-		var elRoot = ui_model_treeview.addChild(elView,
+		var elRoot = ui_model_treeview.addNode(elView,
 			{ contentHtml: this.formatContent(topPkg.name, topPkg.version), }, true);
 
 		//console.log(topItem.path);

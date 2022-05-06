@@ -29,9 +29,10 @@
     "package-json-tool": "^1.0.1",
     "package-json-version-tool": "^1.0.1",
     "path-tool": "^1.0.4",
-    "ui-model-treeview": "^1.0.3"
+    "ui-model-treeview": "^1.0.6"
   },
   "devDependencies": {
+    "add-css-text": "1.0.1",
     "package-json-data-set": "^1.0.2"
   }
 }

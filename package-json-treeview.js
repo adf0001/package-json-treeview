@@ -30,19 +30,33 @@ var packageJsonTreeview = {
 		if (packageDataset) this.updateView(packageDataset);
 	},
 
-	updateVersionAndChildren: function (elArray, mainPkg) {
+	updateVersionAndChildren: function (elArray, mainPkg, mainItem) {
 		if (!(elArray instanceof Array)) elArray = [elArray];
 
 		var mainVer = mainPkg.version;
 
-		var i, imax = elArray.length, el, elVer, verMatch;
+		//console.log(mainItem);
+		var i, vka = [];
+		for (i in mainItem.versionPkg) {
+			vka[vka.length] = (vka.length ? ", " : "") + mainItem.versionPkg[i].pkg.version;
+		}
+		if (vka.length) {
+			vka.unshift("\nother" + ((vka.length > 1) ? "s" : "") + ": ");
+			vka[vka.length] = "\nversion count: " + vka.length;
+		}
+
+		var imax = elArray.length, el, elVer, verMatch;
 		for (i = 0; i < imax; i++) {
 			el = ui_model_treeview.getNode(elArray[i]);
 			elVer = ui_model_treeview.nodePart(el, "pkg-version");
 
 			verMatch = semver_satisfies(mainVer, elVer.textContent);
-			elVer.style.color = verMatch ? "black" : "red";
-			elVer.title = verMatch ? "" : ('top version is ' + mainVer);
+
+			//console.log(el.getAttribute("pkg-path"));
+
+			elVer.style.color = verMatch ? (vka.length ? "darkred" : "black") : "red";
+
+			elVer.title = (verMatch && !vka.length) ? "" : ('top version is ' + mainVer + vka.join(""));
 
 			if (verMatch) {
 				if (!package_json_tool.hasAnyDependencies(mainPkg)) {
@@ -59,8 +73,6 @@ var packageJsonTreeview = {
 
 		var name = elName.textContent;
 
-		var isNew = !this.packageDataset.get(name);
-
 		this.packageDataset.load(this.getParentPath(elNode), name, elVersion.textContent,
 			function (err, data) {
 				if (err) { cb(err, data); return; }
@@ -68,14 +80,11 @@ var packageJsonTreeview = {
 				elNode.setAttribute("pkg-path", path_tool.keyString(data.path));
 
 				var mainItem = _this.packageDataset.get(name);
-				_this.updateVersionAndChildren(elNode, mainItem.pkg);
-				if (isNew) {
-					//update unloaded nodes
-					var depItem = _this.packageDependent.data[name];
-					if (depItem) {
-						_this.updateVersionAndChildren(Object.keys(depItem.fromData), mainItem.pkg);
-					}
-				}
+				//update other nodes
+				var depItem = _this.packageDependent.data[name];
+				_this.updateVersionAndChildren(
+					depItem ? Object.keys(depItem.fromData) : elNode, mainItem.pkg, mainItem
+				);
 
 				if (package_json_tool.anyDependencies(data.pkg)) {
 					if (!ui_model_treeview.nodeChildren(elNode)) {
@@ -169,13 +178,8 @@ var packageJsonTreeview = {
 
 		a[a.length] = "<span class='ht cmd tree-name'" + (isDevelope ? " style='color:black;'" : "") + ">" + name + "</span>";
 
-		//version
-
-		var verColor = pkgItem ? (verMatch ? "black" : "red") : "gray";
-		var verTitle = pkgItem ? (verMatch ? "" : (" title='top version is " + pkgItem.pkg.version + "'")) : "";
-
 		a[a.length] = "<span class='pkg-version' style='margin-left:0.5em;font-size:9pt;" +
-			"color:" + verColor + ";" + "'" + verTitle +
+			"color:gray;'" +
 			">" + versionText + "</span>";
 
 		a[a.length] = "<span class='pkg-dependent' style='margin-left:1em;font-size:9pt;'></span>";
@@ -191,6 +195,14 @@ var packageJsonTreeview = {
 			content = this.formatContent(i, items[i], true, isDevelope);
 			el = ui_model_treeview.addNode(elChildren, { content: content }, true);
 			this.packageDependent.add(i, parentName, ele_id(ui_model_treeview.nodePart(el, "pkg-dependent")));
+
+			var mainItem = this.packageDataset.get(i);
+			if (mainItem) {
+				var depItem = this.packageDependent.data[i];
+				this.updateVersionAndChildren(
+					depItem ? Object.keys(depItem.fromData) : el, mainItem.pkg, mainItem
+				);
+			}
 		}
 	},
 

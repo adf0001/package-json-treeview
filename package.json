@@ -1,6 +1,6 @@
 {
   "name": "package-json-treeview",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "explore a top package.json in treeview",
   "main": "package-json-treeview.js",
   "scripts": {

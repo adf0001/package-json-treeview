@@ -1,8 +1,8 @@
 
 //global variable, for html page, refer tpsvr @ npm.
 package_json_treeview = require("../package-json-treeview.js");
-__package_json= require("../package.json");
-package_json_data_set= require("package-json-data-set");
+__package_json = require("../package.json");
+package_json_data_set = require("package-json-data-set");
 
 module.exports = {
 
@@ -39,22 +39,24 @@ module.exports = {
 
 		//dom
 		document.getElementById('divResult3').innerHTML =
-			"<div style='color:blue;' id='name-click-msg'></div><div id='pkg-treeview'></div>";
+			"<div id='name-click-msg' style='color:blue;border:1px solid lightgrey;'>&nbsp;</div><div class='tree-container' id='pkg-treeview'></div>";
 
 		var el = document.getElementById('pkg-treeview');
 
-		//.class(el, packageDataset)
-		var tv = new package_json_treeview.class(el, dataset);
-		tv.nameClickCallback = function (err, data) {
-			document.getElementById('name-click-msg').innerHTML = err || (data.pkg.name + " clicked");
-		}
+		package_json_treeview.updateView(el, dataset,
+			{
+				nameClickCallback: function (err, data) {
+					document.getElementById('name-click-msg').innerHTML = err || (data.pkg.name + " clicked");
+				}
+			}
+		);
 
 		el.addEventListener("click", function (evt) {
 			var target = evt.target;
 			if (target && target.classList.contains("pkg-dependent") && target.title) {
 				alert(target.title);
 			}
-		})
+		});
 
 		return "ui-test";
 	},

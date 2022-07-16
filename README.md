@@ -22,15 +22,12 @@ var dataset = new package_json_data_set.class(pkgTop, pkgTopPath, loadPackageFun
 
 //dom
 document.getElementById('divResult3').innerHTML =
-	"<div style='color:blue;' id='name-click-msg'></div><div id='pkg-treeview'></div>";
+	"<div class='tree-container' id='pkg-treeview'></div>";
 
 var el = document.getElementById('pkg-treeview');
 
 //.class(el, packageDataset)
-var tv = new package_json_treeview.class(el, dataset);
-tv.nameClickCallback = function (err, data) {
-	document.getElementById('name-click-msg').innerHTML = err || (data.pkg.name + " clicked");
-}
+package_json_treeview.updateView(el, dataset);
 
 el.addEventListener("click", function (evt) {
 	var target = evt.target;

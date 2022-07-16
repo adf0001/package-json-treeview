@@ -1,31 +1,57 @@
-.package-json-treeview .tree-node .tree-name {
+
+.package-json-treeview .tree-node>.tree-name {
 	color: green;
 	cursor: pointer;
 }
+.package-json-treeview .tree-node>.tree-name:hover {
+	background-color: #dddddd;
+}
 
-.package-json-treeview .tree-node.tree-selected .tree-name {
+.package-json-treeview .tree-node.tree-selected>.tree-name:hover {
+	background-color: limegreen;
+}
+
+.package-json-treeview .tree-node.pkg-loaded>.tree-name {
+	cursor: default;
+}
+
+.package-json-treeview .tree-node.tree-selected>.tree-name {
+	color: darkgreen;
+}
+
+.package-json-treeview .tree-node.pkg-develope>.tree-name {
 	color: black;
 }
 
-.package-json-treeview .tree-name:hover {
-	background-color: #dddddd;
-}
 
 .package-json-treeview .tree-delay .pkg-dev {
 	color: gray;
 	cursor: pointer;
 }
 
+.package-json-treeview .tree-delay .pkg-dev:hover {
+	background-color: #dddddd;
+}
+
 .package-json-treeview .pkg-version {
 	margin-left: 0.5em;
-	cursor:default;
+	cursor: default;
+	color: gray;
+}
+
+.package-json-treeview .tree-node.pkg-loaded>.pkg-version {
+	color: black;
+}
+
+.package-json-treeview .tree-node.pkg-ver-main>.pkg-version {
+	color: darkred;
+}
+
+.package-json-treeview .tree-node.pkg-ver-other>.pkg-version {
+	color: red;
 }
 
 .package-json-treeview .pkg-dependent {
 	margin-left: 0.5em;
-	cursor:default;
-}
-
-.package-json-treeview .tree-delay .pkg-dev:hover {
-	background-color: #dddddd;
+	cursor: default;
 }

@@ -26,12 +26,12 @@
   "dependencies": {
     "link-to-count-data-set": "^1.0.2",
     "package-json-tool": "^1.0.1",
-    "package-json-version-tool": "^1.0.1",
+    "package-json-version-tool": "^1.0.2",
     "path-tool": "^1.0.4",
-    "treeview-model": "^1.0.17"
+    "treeview-model": "^1.0.20"
   },
   "devDependencies": {
-    "add-css-text": "1.0.1",
+    "add-css-text": "^1.0.3",
     "package-json-data-set": "^1.0.3"
   }
 }

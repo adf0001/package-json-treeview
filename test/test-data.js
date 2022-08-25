@@ -1,6 +1,6 @@
 
 //global variable, for html page, refer tpsvr @ npm.
-package_json_treeview = require("../package-json-treeview.js");
+package_json_treeview = require("../index.js");
 __package_json = require("../package.json");
 package_json_data_set = require("package-json-data-set");
 

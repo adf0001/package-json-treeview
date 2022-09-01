@@ -1,6 +1,6 @@
 {
   "name": "package-json-treeview",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "explore a top package.json in treeview",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,7 @@
     "package-json-tool": "^1.0.1",
     "package-json-version-tool": "^1.0.2",
     "path-tool": "^1.0.4",
-    "treeview-model": "^1.0.20"
+    "treeview-model": "^1.0.21"
   },
   "devDependencies": {
     "add-css-text": "^1.0.3",
